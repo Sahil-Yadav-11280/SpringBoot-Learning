@@ -1,21 +1,29 @@
 package com.sahil.taskmanager.controller;
 
+import com.sahil.taskmanager.model.Task;
 import com.sahil.taskmanager.service.TaskService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
+@RequestMapping("/tasks")
 public class TaskController {
     private final TaskService taskService;
-
     public TaskController(TaskService taskService){
         this.taskService = taskService;
-        System.out.println("🎮TaskController: Bean created and service injected");
+        System.out.println("🎮 Controller layer created!");
     }
 
-    @GetMapping("/create-task")
-    public String create(){
-        taskService.createTask("Learn Springboot!");
-        return "Task created successfully";
+    @GetMapping
+    public List<Task> getAllTask(){return taskService.getAllTasks();}
+
+    @GetMapping("/{id}")
+    public Task getTaskById(@PathVariable Integer id){return taskService.getTaskById(id);}
+
+    @PostMapping
+    public Task createTask(@RequestBody Task task){
+        return taskService.createTask(task);
     }
+
 }

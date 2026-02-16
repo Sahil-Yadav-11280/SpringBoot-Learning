@@ -26,4 +26,18 @@ public class TaskController {
         return taskService.createTask(task);
     }
 
+    @PatchMapping("/{id}/title")
+    public Task updateTitle(@PathVariable Integer id , @RequestBody Task task){
+        return taskService.updateTitle(id,task.getTitle());
+    }
+
+    @PatchMapping("/{id}/completed")
+    public Task updateCompleted(@PathVariable Integer id , @RequestBody Task task){
+        return taskService.updateCompleted(id , task.isCompleted());
+    }
+
+    @DeleteMapping("/{id}/delete")
+    public Task deleteTask(@PathVariable Integer id){
+        return taskService.deleteTask(id);
+    }
 }

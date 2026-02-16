@@ -26,4 +26,10 @@ public class TaskRepository {
         tasks.add(task);
         return task;
     }
+
+    public Task delete(Task task){
+        tasks.remove(task);
+        return task;
+    }
+
 }

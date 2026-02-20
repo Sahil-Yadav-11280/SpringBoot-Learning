@@ -1,69 +1,28 @@
 package com.sahil.taskmanager.model;
 
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
+@Entity //Tells hibernate: "Make a table out of this class"
 //Using lombok annotations:
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Task {
+
+    @Id //Tells hibernate: "This is a primary key"
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // "Auto increment this id for me (1,2,3...)"
     private Integer id;
     private String title;
     private boolean completed;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//    default constructor for JSON parsing
-//    public Task(){}
-//
-//    public Task(Integer id , String title , boolean completed){
-//        this.id = id;
-//        this.title=title;
-//        this.completed=completed;
-//    }
-//
-//    getters and setters
-//    public Integer getId(){return this.id;}
-//    public void setId(Integer id){this.id=id;}
-//
-//    public String getTitle(){return this.title;}
-//    public void setTitle(String title){this.title=title;}
-//
-//    public boolean getCompleted(){return this.completed;}
-//    public void setCompleted(boolean completed){this.completed = completed;}
 }

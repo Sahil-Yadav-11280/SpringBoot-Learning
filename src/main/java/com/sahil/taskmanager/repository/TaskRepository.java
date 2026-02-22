@@ -1,35 +1,44 @@
 package com.sahil.taskmanager.repository;
 
 import com.sahil.taskmanager.model.Task;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+// To use repository of a database we convert this class into an interface that extends JpaRepository
+
 @Repository
-public class TaskRepository {
-    public TaskRepository(){System.out.println("📦 Repository layer created!");}
+public interface TaskRepository extends JpaRepository<Task, Integer> {
 
-    private List<Task> tasks = new ArrayList<>();
+    // Leave it completely empty!
+    // By extending JpaRepository, Spring automatically generates the SQL
+    // for save(), findById(), findAll(), and deleteById() in the background.
 
-    public List<Task> findAll(){return tasks;}
-    public Task findById(Integer id){
-        for(Task task:tasks){
-            if(Objects.equals(task.getId(), id)){
-                return task;
-            }
-        }
-        return null;
-    }
-    public Task save(Task task){
-        tasks.add(task);
-        return task;
-    }
 
-    public Task delete(Task task){
-        tasks.remove(task);
-        return task;
-    }
 
+//    public TaskRepository(){System.out.println("📦 Repository layer created!");}
+//
+//    private List<Task> tasks = new ArrayList<>();
+//
+//    public List<Task> findAll(){return tasks;}
+//    public Task findById(Integer id){
+//        for(Task task:tasks){
+//            if(Objects.equals(task.getId(), id)){
+//                return task;
+//            }
+//        }
+//        return null;
+//    }
+//    public Task save(Task task){
+//        tasks.add(task);
+//        return task;
+//    }
+//
+//    public Task delete(Task task){
+//        tasks.remove(task);
+//        return task;
+//    }
 }

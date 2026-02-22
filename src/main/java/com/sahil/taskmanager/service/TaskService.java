@@ -8,7 +8,6 @@ import java.util.List;
 
 @Service
 public class TaskService {
-    int id = 1;
 
     private final TaskRepository taskRepository;
     public TaskService(TaskRepository taskRepository){
@@ -18,35 +17,31 @@ public class TaskService {
 
     public List<Task> getAllTasks(){return taskRepository.findAll();}
 
-    public Task getTaskById(Integer id){return taskRepository.findById(id);}
+    public Task getTaskById(Integer id){return taskRepository.findById(id).orElse(null);}
 
     public Task createTask(Task task){
-        task.setId(id);
-        id++;
         return taskRepository.save(task);
     }
 
     public Task updateTitle(Integer id, String title){
-        Task task = taskRepository.findById(id);
+        Task task = getTaskById(id);
         if(task != null){
             task.setTitle(title);
+            return taskRepository.save(task);
         }
-        return task;
+        return null;
     }
 
     public Task updateCompleted(Integer id, boolean completed){
-        Task task = taskRepository.findById(id);
+        Task task = getTaskById(id);
         if(task != null){
             task.setCompleted(completed);
-        }
-        return task;
-    }
-
-    public Task deleteTask(Integer id){
-        Task task = taskRepository.findById(id);
-        if(task != null){
-            return taskRepository.delete(task);
+            return taskRepository.save(task);
         }
         return null;
+    }
+
+    public void deleteTask(Integer id){
+        taskRepository.deleteById(id);
     }
 }

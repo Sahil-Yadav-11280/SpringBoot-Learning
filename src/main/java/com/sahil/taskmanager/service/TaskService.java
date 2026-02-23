@@ -53,4 +53,6 @@ public class TaskService {
     public void deleteTask(Integer id){
         taskRepository.deleteById(id);
     }
+
+    public List<Task> pendingTasks(){return taskRepository.getTasksByCompletedFalse();}
 }

@@ -40,4 +40,9 @@ public class TaskController {
     public void deleteTask(@PathVariable Integer id){
         taskService.deleteTask(id);
     }
+
+    @GetMapping("/pending")
+    public List<Task> pendingTasks(){
+        return taskService.pendingTasks();
+    }
 }

@@ -12,6 +12,8 @@ import java.util.Objects;
 
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Integer> {
+    List<Task> getTasksByCompletedFalse();
+
 
     // Leave it completely empty!
     // By extending JpaRepository, Spring automatically generates the SQL

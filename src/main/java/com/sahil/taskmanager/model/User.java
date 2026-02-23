@@ -1,6 +1,7 @@
 package com.sahil.taskmanager.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.jws.Oneway;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -24,6 +25,7 @@ public class User {
 
 //    THE RELATIONSHIP (One-To-Many)
 //    One user is linked to a list of Tasks
+    @JsonIgnore
     @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL)
     private List<Task> tasks;
 }

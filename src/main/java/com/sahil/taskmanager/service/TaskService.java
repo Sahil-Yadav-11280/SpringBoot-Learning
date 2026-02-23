@@ -1,7 +1,9 @@
 package com.sahil.taskmanager.service;
 
 import com.sahil.taskmanager.model.Task;
+import com.sahil.taskmanager.model.User;
 import com.sahil.taskmanager.repository.TaskRepository;
+import com.sahil.taskmanager.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,8 +12,10 @@ import java.util.List;
 public class TaskService {
 
     private final TaskRepository taskRepository;
-    public TaskService(TaskRepository taskRepository){
+    private final UserRepository userRepository;
+    public TaskService(TaskRepository taskRepository , UserRepository userRepository){
         this.taskRepository = taskRepository;
+        this.userRepository = userRepository;
         System.out.println("🧑‍🍳 Service layer created!");
     }
 
@@ -20,6 +24,11 @@ public class TaskService {
     public Task getTaskById(Integer id){return taskRepository.findById(id).orElse(null);}
 
     public Task createTask(Task task){
+        User defaultUser = userRepository.findById(1).orElse(null);
+
+        if(defaultUser!=null){
+            task.setUser(defaultUser);
+        }
         return taskRepository.save(task);
     }
 

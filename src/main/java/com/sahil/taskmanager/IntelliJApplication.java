@@ -16,7 +16,7 @@ public class IntelliJApplication {
 
     @Bean
     public CommandLineRunner loadData(UserRepository userRepository){
-        return args -> {
+        return VastoLorde -> {
             if(userRepository.count()==0){
                 User defaultUser = new User();
                 defaultUser.setUsername("Sahil_admin");

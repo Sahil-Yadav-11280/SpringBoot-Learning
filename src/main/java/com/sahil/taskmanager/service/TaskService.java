@@ -50,6 +50,15 @@ public class TaskService {
         return null;
     }
 
+    public Task updateDescription(Integer id , String desc){
+        Task task = getTaskById(id);
+        if(task!=null){
+            task.setDesc(desc);
+            return taskRepository.save(task);
+        }
+        return null;
+    }
+
     public void deleteTask(Integer id){
         taskRepository.deleteById(id);
     }

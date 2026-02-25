@@ -36,6 +36,11 @@ public class TaskController {
         return taskService.updateCompleted(id , task.isCompleted());
     }
 
+    @PatchMapping("/{id}/description")
+    public Task updateDescription(@PathVariable Integer id, @RequestBody Task task){
+        return taskService.updateDescription(id,task.getDesc());
+    }
+
     @DeleteMapping("/{id}/delete")
     public void deleteTask(@PathVariable Integer id){
         taskService.deleteTask(id);

@@ -6,6 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDateTime;
 
 
 @Entity //Tells hibernate: "Make a table out of this class"
@@ -27,7 +30,15 @@ public class Task {
     @Column(name = "task_completed" , nullable = false)
     private boolean completed;
 
+    @Column(name = "description")
+    private String desc;
+
+    @CreationTimestamp
+    @Column(updatable = false)
+    private LocalDateTime createdAt;
+
     @ManyToOne
     @JoinColumn(name = "user_id" , nullable = false)
     private User user;
+
 }

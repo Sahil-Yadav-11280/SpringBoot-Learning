@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
@@ -22,6 +23,9 @@ public class User {
 
     @Column(nullable = false , unique = true)
     private String username;
+
+    @Column(nullable = false , unique = true , length = 150 , columnDefinition = "varchar(150) default 'sahil_admin@test.com'")
+    private String email;
 
 //    THE RELATIONSHIP (One-To-Many)
 //    One user is linked to a list of Tasks

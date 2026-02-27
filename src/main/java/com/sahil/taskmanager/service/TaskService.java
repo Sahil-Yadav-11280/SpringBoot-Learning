@@ -4,6 +4,7 @@ import com.sahil.taskmanager.model.Task;
 import com.sahil.taskmanager.model.User;
 import com.sahil.taskmanager.repository.TaskRepository;
 import com.sahil.taskmanager.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -64,4 +65,28 @@ public class TaskService {
     }
 
     public List<Task> pendingTasks(){return taskRepository.getTasksByCompletedFalse();}
+
+
+//    Sabotaged Method:
+    @Transactional
+    public void testTransactionRollback(){
+        User doomedUser = new User();
+        doomedUser.setUsername("doomed_user");
+        doomedUser.setEmail("doomed@test.com");
+
+        userRepository.save(doomedUser);
+
+        System.out.println("User saved to database... System about to crash...");
+
+//        Simulate a system failure:
+        if(true){
+            throw new RuntimeException(("Simulated System Crash!!"));
+        }
+
+        Task task = new Task();
+        task.setTitle("This task will never exist");
+        task.setCompleted(false);
+        task.setUser(doomedUser);
+        taskRepository.save(task);
+    }
 }

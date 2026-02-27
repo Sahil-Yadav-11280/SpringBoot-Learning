@@ -1,5 +1,6 @@
 package com.sahil.taskmanager.service;
 
+import com.sahil.taskmanager.dto.TaskDto;
 import com.sahil.taskmanager.model.Task;
 import com.sahil.taskmanager.model.User;
 import com.sahil.taskmanager.repository.TaskRepository;
@@ -7,6 +8,7 @@ import com.sahil.taskmanager.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -88,5 +90,25 @@ public class TaskService {
         task.setCompleted(false);
         task.setUser(doomedUser);
         taskRepository.save(task);
+    }
+
+    public List<TaskDto> getAllTasksSafe(){
+            List<Task> rawTasks = taskRepository.findAll();
+            List<TaskDto> safeTasks = new ArrayList<>();
+
+            for (Task task: rawTasks){
+                TaskDto dto = new TaskDto();
+                dto.setId(task.getId());
+                dto.setTitle(task.getTitle());
+                dto.setDescription(task.getDesc());
+                dto.setCompleted(task.isCompleted());
+                dto.setCreatedAt(task.getCreatedAt());
+
+                if(task.getUser()!=null){
+                    dto.setOwnerUsername(task.getUser().getUsername());
+                }
+                safeTasks.add(dto);
+            }
+            return safeTasks;
     }
 }

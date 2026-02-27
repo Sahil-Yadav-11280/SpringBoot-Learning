@@ -1,5 +1,6 @@
 package com.sahil.taskmanager.controller;
 
+import com.sahil.taskmanager.dto.TaskDto;
 import com.sahil.taskmanager.model.Task;
 import com.sahil.taskmanager.service.TaskService;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +17,8 @@ public class TaskController {
     }
 
     @GetMapping
-    public List<Task> getAllTask(){return taskService.getAllTasks();}
+//    public List<Task> getAllTask(){return taskService.getAllTasks();}
+    public List<TaskDto> getAllTask(){return taskService.getAllTasksSafe();}
 
     @GetMapping("/{id}")
     public Task getTaskById(@PathVariable Integer id){return taskService.getTaskById(id);}

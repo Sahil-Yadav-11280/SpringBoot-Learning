@@ -50,4 +50,10 @@ public class TaskController {
     public List<Task> pendingTasks(){
         return taskService.pendingTasks();
     }
+
+    @GetMapping("/sabotage")
+    public String triggerSabotage(){
+        taskService.testTransactionRollback();
+        return "this will never return because of system crash";
+    }
 }

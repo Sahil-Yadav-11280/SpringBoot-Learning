@@ -1,0 +1,24 @@
+package com.sahil.taskmanager.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.time.LocalDateTime;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public class TaskDto {
+    private Integer id;
+    private String title;
+    private String description;
+    private boolean completed;
+    private LocalDateTime createdAt;
+
+
+//  We don't bring the whole user object just the username.
+    private String ownerUsername;
+}

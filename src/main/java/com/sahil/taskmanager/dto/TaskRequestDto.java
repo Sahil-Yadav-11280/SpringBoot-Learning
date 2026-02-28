@@ -14,13 +14,13 @@ import lombok.Setter;
 @AllArgsConstructor
 public class TaskRequestDto {
 
-    @NotBlank(message = "Title cannot be empty!")
-    @Size(min = 3,max = 255, message = "Title must be between 3 and 255 characters")
+    @NotBlank(message = "⚠️Title cannot be empty!")
+    @Size(min = 3,max = 255, message = "⚠️Title must be between 3 and 255 characters")
     private String title;
 
-    @Size(max = 500, message = "description is too long!")
+    @Size(max = 500, message = "⚠️description is too long!")
     private String description;
 
-    @NotBlank(message = "Username is compulsory")
+    @NotBlank(message = "⚠️Username is compulsory")
     private String ownerUsername;
 }

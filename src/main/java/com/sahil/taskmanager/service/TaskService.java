@@ -143,7 +143,7 @@ public class TaskService {
 
     public TaskDto getTaskByIdSafe(Integer id){
         Task taskEntity = taskRepository.findById(id).orElseThrow(()->
-            new RuntimeException("task with ID " + id + " was not found in the database")
+            new RuntimeException("⚠️⚠️task with ID " + id + " was not found in the database")
         );
 
         TaskDto dto = new TaskDto();

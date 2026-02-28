@@ -2,11 +2,13 @@ package com.sahil.taskmanager.service;
 
 import com.sahil.taskmanager.dto.TaskDto;
 import com.sahil.taskmanager.dto.TaskRequestDto;
+import com.sahil.taskmanager.exception.ResourceNotFoundException;
 import com.sahil.taskmanager.model.Task;
 import com.sahil.taskmanager.model.User;
 import com.sahil.taskmanager.repository.TaskRepository;
 import com.sahil.taskmanager.repository.UserRepository;
 import jakarta.transaction.Transactional;
+import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -113,7 +115,7 @@ public class TaskService {
             return safeTasks;
     }
 
-    public TaskDto createTaskSafe(TaskRequestDto incomingdata){
+    public TaskDto createTaskSafe(@NonNull TaskRequestDto incomingdata){
         Task newEntity = new Task();
         newEntity.setTitle(incomingdata.getTitle());
         newEntity.setDesc(incomingdata.getDescription());
@@ -137,5 +139,21 @@ public class TaskService {
         outboundDto.setOwnerUsername(savedEntity.getUser().getUsername());
 
         return outboundDto;
+    }
+
+    public TaskDto getTaskByIdSafe(Integer id){
+        Task taskEntity = taskRepository.findById(id).orElseThrow(()->
+            new RuntimeException("task with ID " + id + " was not found in the database")
+        );
+
+        TaskDto dto = new TaskDto();
+        dto.setId(taskEntity.getId());
+        dto.setTitle(taskEntity.getTitle());
+        dto.setDescription(taskEntity.getDesc());
+        dto.setCompleted(taskEntity.isCompleted());
+        dto.setCreatedAt(taskEntity.getCreatedAt());
+        dto.setOwnerUsername(taskEntity.getUser().getUsername());
+
+        return dto;
     }
 }

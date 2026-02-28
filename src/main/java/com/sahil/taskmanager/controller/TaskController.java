@@ -1,6 +1,7 @@
 package com.sahil.taskmanager.controller;
 
 import com.sahil.taskmanager.dto.TaskDto;
+import com.sahil.taskmanager.dto.TaskRequestDto;
 import com.sahil.taskmanager.model.Task;
 import com.sahil.taskmanager.service.TaskService;
 import org.springframework.web.bind.annotation.*;
@@ -24,9 +25,10 @@ public class TaskController {
     public Task getTaskById(@PathVariable Integer id){return taskService.getTaskById(id);}
 
     @PostMapping
-    public Task createTask(@RequestBody Task task){
-        return taskService.createTask(task);
-    }
+    public TaskDto createTaskSafe(@RequestBody TaskRequestDto incomingDto){return taskService.createTaskSafe(incomingDto);}
+//    public Task createTask(@RequestBody Task task){
+//        return taskService.createTask(task);
+//    }
 
     @PatchMapping("/{id}/title")
     public Task updateTitle(@PathVariable Integer id , @RequestBody Task task){

@@ -1,6 +1,7 @@
 package com.sahil.taskmanager.service;
 
 import com.sahil.taskmanager.dto.TaskDto;
+import com.sahil.taskmanager.dto.TaskRequestDto;
 import com.sahil.taskmanager.model.Task;
 import com.sahil.taskmanager.model.User;
 import com.sahil.taskmanager.repository.TaskRepository;
@@ -110,5 +111,31 @@ public class TaskService {
                 safeTasks.add(dto);
             }
             return safeTasks;
+    }
+
+    public TaskDto createTaskSafe(TaskRequestDto incomingdata){
+        Task newEntity = new Task();
+        newEntity.setTitle(incomingdata.getTitle());
+        newEntity.setDesc(incomingdata.getDescription());
+
+        User owner = userRepository.getUserByUsername(incomingdata.getOwnerUsername());
+        if(owner!=null){
+            newEntity.setUser(owner);
+        }
+        else{
+            throw new RuntimeException("User not found!");
+        }
+
+        Task savedEntity = taskRepository.save(newEntity);
+
+        TaskDto outboundDto = new TaskDto();
+        outboundDto.setId(savedEntity.getId());
+        outboundDto.setTitle(savedEntity.getTitle());
+        outboundDto.setDescription(savedEntity.getDesc());
+        outboundDto.setCompleted(savedEntity.isCompleted());
+        outboundDto.setCreatedAt(savedEntity.getCreatedAt());
+        outboundDto.setOwnerUsername(savedEntity.getUser().getUsername());
+
+        return outboundDto;
     }
 }

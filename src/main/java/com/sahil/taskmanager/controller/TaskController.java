@@ -4,6 +4,7 @@ import com.sahil.taskmanager.dto.TaskDto;
 import com.sahil.taskmanager.dto.TaskRequestDto;
 import com.sahil.taskmanager.model.Task;
 import com.sahil.taskmanager.service.TaskService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public class TaskController {
     public Task getTaskById(@PathVariable Integer id){return taskService.getTaskById(id);}
 
     @PostMapping
-    public TaskDto createTaskSafe(@RequestBody TaskRequestDto incomingDto){return taskService.createTaskSafe(incomingDto);}
+    public TaskDto createTaskSafe(@Valid @RequestBody TaskRequestDto incomingDto){return taskService.createTaskSafe(incomingDto);}
 //    public Task createTask(@RequestBody Task task){
 //        return taskService.createTask(task);
 //    }

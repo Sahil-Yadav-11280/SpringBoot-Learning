@@ -23,7 +23,8 @@ public class TaskController {
     public List<TaskDto> getAllTask(){return taskService.getAllTasksSafe();}
 
     @GetMapping("/{id}")
-    public Task getTaskById(@PathVariable Integer id){return taskService.getTaskById(id);}
+    public TaskDto getTaskByIdSafe(@PathVariable Integer id){return taskService.getTaskByIdSafe(id);}
+//    public Task getTaskById(@PathVariable Integer id){return taskService.getTaskById(id);}
 
     @PostMapping
     public TaskDto createTaskSafe(@Valid @RequestBody TaskRequestDto incomingDto){return taskService.createTaskSafe(incomingDto);}
